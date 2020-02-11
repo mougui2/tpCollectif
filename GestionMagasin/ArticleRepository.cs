@@ -53,6 +53,13 @@ namespace GestionMagasin
             this.context = context;
         }
 
+        public void Save()
+        {
+            context.SaveChanges();
+        }
+
+        #region Article
+
         public Article FindArticleById(int id)
         {
             return context.Articles.Where(a => a.Id == id).FirstOrDefault();
@@ -97,16 +104,18 @@ namespace GestionMagasin
         {
             context.Articles.Remove(article);
         }
-
-        public void Save()
-        {
-            context.SaveChanges();
-        }
-
         public void Update(Article article)
         {
             context.Articles.Update(article);
         }
+
+        #endregion
+
+        #region etagere
+
+        #endregion
+
+        #region secteur
 
         public float PrixMoyenBySecteur(Secteur secteur)
         {
@@ -115,5 +124,12 @@ namespace GestionMagasin
             lesArticles.ToList().ForEach(a => total += a.PrixInitial);
             return total / lesArticles.Count();
         }
+
+        #endregion
+
+
+        //TODO article prix moyen sur tous le magasin par article, qte totale de l'article
+        //todo etagere prix moyen de l'etagere, qte article, poidsdes articles present, taux remplissage (% poids)
+        //todo secteur qte article, nb etageres, taux remplissage moyen(% poids)
     }
 }
