@@ -86,7 +86,8 @@ namespace GestionMagasin
         {
             List<Article> listArticle = new List<Article>();
 
-            context.Etageres.Where(e => e.Id == etagere.Id).FirstOrDefault()?.ListPositions.ForEach(p => {
+            context.Etageres.Where(e => e.Id == etagere.Id).FirstOrDefault()?.ListPositions.ForEach(p =>
+            {
 
                 if (p.IdEtagere == etagere.Id)
                     listArticle.Add(FindArticleById(p.IdArticle));
@@ -109,6 +110,14 @@ namespace GestionMagasin
             context.Articles.Update(article);
         }
 
+        public int GetQuantiteArticleEnMagasin(int idArticle)
+        {
+            int total =0;
+            var article = FindArticleById(idArticle);
+            article.ListPositions.ForEach(pos => total += pos.Quantite);
+            return total;
+        }
+
         #endregion
 
         #region etagere
@@ -124,11 +133,9 @@ namespace GestionMagasin
             lesArticles.ToList().ForEach(a => total += a.PrixInitial);
             return total / lesArticles.Count();
         }
-
         #endregion
 
 
-        //TODO article prix moyen sur tous le magasin par article, qte totale de l'article
         //todo etagere prix moyen de l'etagere, qte article, poidsdes articles present, taux remplissage (% poids)
         //todo secteur qte article, nb etageres, taux remplissage moyen(% poids)
     }
