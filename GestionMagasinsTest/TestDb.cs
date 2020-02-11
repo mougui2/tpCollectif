@@ -3,6 +3,8 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using FluentAssertions;
+using GestionMagasin;
+using GestionMagasin.model;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Xunit;
 
