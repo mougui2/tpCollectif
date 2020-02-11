@@ -4,6 +4,8 @@ using System.IO;
 using System.Linq;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using tpIndividuel;
+using tpIndividuel.model;
 using Xunit;
 
 namespace TestingProject
