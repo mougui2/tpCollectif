@@ -12,6 +12,6 @@ namespace GestionMagasin
         void Remove(Article article);
         void Save();
         IEnumerable<Article> GetAllArticles();
-        Article FindArticleById(int id);
+        Article GetArticleById(int id);
     }
 }

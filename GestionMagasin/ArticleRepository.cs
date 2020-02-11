@@ -60,7 +60,7 @@ namespace GestionMagasin
 
         #region Article
 
-        public Article FindArticleById(int id)
+        public Article GetArticleById(int id)
         {
             return context.Articles.Where(a => a.Id == id).FirstOrDefault();
         }
@@ -69,19 +69,7 @@ namespace GestionMagasin
         {
             return context.Articles;
         }
-        public IEnumerable<Article> GetAllArticlesBySecteur(Secteur secteur)
-        {
-            List<Article> listArticle = new List<Article>();
-            context.Secteurs.Where(s => s.Id == secteur.Id).FirstOrDefault()?.ListEtagere.ForEach(e => e.ListPositions.ForEach(pos =>
-            {
-                if (pos.Etagere.Id == e.Id)
-                {
-                    listArticle.Add(pos.Article);
-                }
-            }));
-
-            return listArticle;
-        }
+        
         public IEnumerable<Article> GetAllArticlesByEtagere(Etagere etagere)
         {
             List<Article> listArticle = new List<Article>();
@@ -90,7 +78,7 @@ namespace GestionMagasin
             {
 
                 if (p.IdEtagere == etagere.Id)
-                    listArticle.Add(FindArticleById(p.IdArticle));
+                    listArticle.Add(GetArticleById(p.IdArticle));
             });
 
             return listArticle;
@@ -113,7 +101,7 @@ namespace GestionMagasin
         public int GetQuantiteArticleEnMagasin(int idArticle)
         {
             int total =0;
-            var article = FindArticleById(idArticle);
+            var article = GetArticleById(idArticle);
             article.ListPositions.ForEach(pos => total += pos.Quantite);
             return total;
         }
@@ -126,13 +114,11 @@ namespace GestionMagasin
 
         #region secteur
 
-        public float PrixMoyenBySecteur(Secteur secteur)
+        public Secteur GetSecteurById(int id)
         {
-            var lesArticles = GetAllArticlesBySecteur(secteur);
-            float total = 0;
-            lesArticles.ToList().ForEach(a => total += a.PrixInitial);
-            return total / lesArticles.Count();
+            return context.Secteurs.Where(s => s.Id == id).FirstOrDefault();
         }
+
         #endregion
 
 

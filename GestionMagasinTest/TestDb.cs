@@ -97,7 +97,7 @@ namespace GestionMagasinTest
         {
             InitTest();
             var repo = new ArticleRepository(ctx);
-            var result = repo.GetAllArticlesBySecteur(_secteur1);
+            var result = _secteur1.GetAllArticle();
             result.First().Should().BeSameAs(_article);
         }
 
@@ -106,7 +106,7 @@ namespace GestionMagasinTest
         {
             InitTest();
             var repo = new ArticleRepository(ctx);
-            var result = repo.FindArticleById(1);
+            var result = repo.GetArticleById(1);
             result.Should().BeSameAs(_article);
         }
 
@@ -137,7 +137,7 @@ namespace GestionMagasinTest
         {
             InitTest();
             var repo = new ArticleRepository(ctx);
-            var result = repo.PrixMoyenBySecteur(_secteur);
+            var result = _secteur.GetPrixMoyen();
             result.Should().Be((_article.PrixInitial + _article1.PrixInitial) / 2);
         }
     }
