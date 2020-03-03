@@ -1,0 +1,49 @@
+﻿@page
+@model WebAppliRazor.EtagereModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+    <h1>Etageres</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Etagere[0].PoidsMaximum)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Etagere[0].Secteur)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Etagere[0].ListPositions)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Etagere)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PoidsMaximum)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Secteur)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ListPositions)
+                </td>
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

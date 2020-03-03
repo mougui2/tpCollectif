@@ -9,6 +9,11 @@ namespace GestionMagasin
 {
     public class TpDbContext : DbContext, IDisposable
     {
+
+        public TpDbContext(DbContextOptions<TpDbContext> options)
+           : base(options)
+        {        }
+
         public DbSet<Secteur> Secteurs { get; set; }
         public DbSet<Etagere> Etageres { get; set; }
         public DbSet<Article> Articles { get; set; }
@@ -37,11 +42,6 @@ namespace GestionMagasin
 
         }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlite("Filename=demos.db");
-            base.OnConfiguring(optionsBuilder);
-        }
     }
 
     public class ArticleRepository : IArticleRepository

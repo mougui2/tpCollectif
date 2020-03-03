@@ -1,16 +1,14 @@
 using System;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using FluentAssertions;
 using GestionMagasin;
 using GestionMagasin.model;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Microsoft.EntityFrameworkCore;
 using Xunit;
 
 namespace GestionMagasinTest
 {
-    [TestClass]
     public class TestDb
     {
         private Secteur _secteur;
@@ -56,7 +54,7 @@ namespace GestionMagasinTest
 
             initVar();
 
-            ctx = new TpDbContext();
+            ctx = new TpDbContext(new DbContextOptionsBuilder<TpDbContext>().UseSqlite("Filename=test.db").Options);
             ctx.Database.EnsureDeleted();
             ctx.Database.EnsureCreated();
             ctx.Articles.Add(_article1);

@@ -1,0 +1,40 @@
+﻿@page
+@model WebAppliRazor.Etagere_DeleteModel
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>Delete</h1>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Etagere</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Etagere.PoidsMaximum)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Etagere.PoidsMaximum)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Etagere.Secteur)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Etagere.Secteur)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Etagere.ListPositions)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Etagere.ListPositions)
+        </dd>
+    </dl>
+    
+    <form method="post">
+        <input type="hidden" asp-for="Etagere.Id" />
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a asp-page="./Index">Back to List</a>
+    </form>
+</div>
