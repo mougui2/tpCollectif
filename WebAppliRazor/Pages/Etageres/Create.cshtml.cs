@@ -27,6 +27,9 @@ namespace WebAppliRazor
         [BindProperty]
         public Etagere Etagere { get; set; }
 
+        [BindProperty]
+        public List<Secteur> SecteurList { get { return _context.Secteurs.ToList(); } }
+
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
