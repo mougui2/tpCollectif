@@ -53,7 +53,14 @@ namespace GestionMagasin
             this.context = context;
         }
 
-        public Article FindArticleById(int id)
+        public void Save()
+        {
+            context.SaveChanges();
+        }
+
+        #region Article
+
+        public Article GetArticleById(int id)
         {
             return context.Articles.Where(a => a.Id == id).FirstOrDefault();
         }
@@ -62,27 +69,16 @@ namespace GestionMagasin
         {
             return context.Articles;
         }
-        public IEnumerable<Article> GetAllArticlesBySecteur(Secteur secteur)
-        {
-            List<Article> listArticle = new List<Article>();
-            context.Secteurs.Where(s => s.Id == secteur.Id).FirstOrDefault()?.ListEtagere.ForEach(e => e.ListPositions.ForEach(pos =>
-            {
-                if (pos.Etagere.Id == e.Id)
-                {
-                    listArticle.Add(pos.Article);
-                }
-            }));
-
-            return listArticle;
-        }
+        
         public IEnumerable<Article> GetAllArticlesByEtagere(Etagere etagere)
         {
             List<Article> listArticle = new List<Article>();
 
-            context.Etageres.Where(e => e.Id == etagere.Id).FirstOrDefault()?.ListPositions.ForEach(p => {
+            context.Etageres.Where(e => e.Id == etagere.Id).FirstOrDefault()?.ListPositions.ForEach(p =>
+            {
 
                 if (p.IdEtagere == etagere.Id)
-                    listArticle.Add(FindArticleById(p.IdArticle));
+                    listArticle.Add(GetArticleById(p.IdArticle));
             });
 
             return listArticle;
@@ -97,23 +93,36 @@ namespace GestionMagasin
         {
             context.Articles.Remove(article);
         }
-
-        public void Save()
-        {
-            context.SaveChanges();
-        }
-
         public void Update(Article article)
         {
             context.Articles.Update(article);
         }
 
-        public float PrixMoyenBySecteur(Secteur secteur)
+        public int GetQuantiteArticleEnMagasin(int idArticle)
         {
-            var lesArticles = GetAllArticlesBySecteur(secteur);
-            float total = 0;
-            lesArticles.ToList().ForEach(a => total += a.PrixInitial);
-            return total / lesArticles.Count();
+            int total =0;
+            var article = GetArticleById(idArticle);
+            article.ListPositions.ForEach(pos => total += pos.Quantite);
+            return total;
         }
+
+        #endregion
+
+        #region etagere
+
+        #endregion
+
+        #region secteur
+
+        public Secteur GetSecteurById(int id)
+        {
+            return context.Secteurs.Where(s => s.Id == id).FirstOrDefault();
+        }
+
+        #endregion
+
+
+        //todo etagere prix moyen de l'etagere, qte article, poidsdes articles present, taux remplissage (% poids)
+        //todo secteur qte article, nb etageres, taux remplissage moyen(% poids)
     }
 }
