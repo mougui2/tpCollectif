@@ -59,19 +59,17 @@
                 <span asp-validation-for="Article.SKU" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
-        <form id="addPos">
-            <div class="form-group">
                 <label asp-for="Article.ListPositions" class="control-label">ID de l'étagère : </label>
                 @Html.DropDownListFor(model => model.Article.ListPositions, listItems)
                 <span asp-validation-for="Article.ListPositions" class="text-danger"></span>
 
                 <label asp-for="Article.ListPositions" class="control-label">Nombre d'articles sur l'étagère : </label>
-                
+
                 <input class="form-control" value="@Model.qte" id="qteIn" />
                 <input type="button" value="+" class="btn" action="@validate()" />
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
             </div>
         </form>
         <div>
