@@ -11,19 +11,18 @@ using GestionMagasin.model;
 
 namespace WebAppliRazor
 {
-    public class Etagere_EditModel : PageModel
+    public class Article_EditModel : PageModel
     {
         private readonly GestionMagasin.TpDbContext _context;
 
-        public Etagere_EditModel(GestionMagasin.TpDbContext context)
+        public Article_EditModel(GestionMagasin.TpDbContext context)
         {
             _context = context;
         }
 
         [BindProperty]
-        public Etagere Etagere { get; set; }
-        [BindProperty]
-        public List<Secteur> SecteurList { get { return _context.Secteurs.ToList(); } }
+        public Article Article { get; set; }
+
         public async Task<IActionResult> OnGetAsync(int? id)
         {
             if (id == null)
@@ -31,9 +30,9 @@ namespace WebAppliRazor
                 return NotFound();
             }
 
-            Etagere = await _context.Etageres.FirstOrDefaultAsync(m => m.Id == id);
+            Article = await _context.Articles.FirstOrDefaultAsync(m => m.Id == id);
 
-            if (Etagere == null)
+            if (Article == null)
             {
                 return NotFound();
             }
@@ -49,7 +48,7 @@ namespace WebAppliRazor
                 return Page();
             }
 
-            _context.Attach(Etagere).State = EntityState.Modified;
+            _context.Attach(Article).State = EntityState.Modified;
 
             try
             {
@@ -57,7 +56,7 @@ namespace WebAppliRazor
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!EtagereExists(Etagere.Id))
+                if (!ArticleExists(Article.Id))
                 {
                     return NotFound();
                 }
@@ -70,9 +69,9 @@ namespace WebAppliRazor
             return RedirectToPage("./Index");
         }
 
-        private bool EtagereExists(int id)
+        private bool ArticleExists(int id)
         {
-            return _context.Etageres.Any(e => e.Id == id);
+            return _context.Articles.Any(e => e.Id == id);
         }
     }
 }

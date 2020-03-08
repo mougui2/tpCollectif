@@ -1,0 +1,65 @@
+﻿@page
+@model WebAppliRazor.Article_CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+
+    List<SelectListItem> listItems= new List<SelectListItem>();
+    foreach ( var article in Model.ArticlesList)
+    {
+        listItems.Add(new SelectListItem(article.Libelle, article.Id.ToString()));
+    }
+}
+
+<h1>Create</h1>
+
+<h4>Article</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Article.Libelle" class="control-label"></label>
+                <input asp-for="Article.Libelle" class="form-control" />
+                <span asp-validation-for="Article.Libelle" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Article.Poids" class="control-label"></label>
+                <input asp-for="Article.Poids" class="form-control" />
+                <span asp-validation-for="Article.Poids" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Article.PrixInitial" class="control-label"></label>
+                <input asp-for="Article.PrixInitial" class="form-control" />
+                <span asp-validation-for="Article.PrixInitial" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Article.DateSortie" class="control-label"></label>
+                <input asp-for="Article.DateSortie" class="form-control" />
+                <span asp-validation-for="Article.DateSortie" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Article.SKU" class="control-label"></label>
+                <input asp-for="Article.SKU" class="form-control" />
+                <span asp-validation-for="Article.SKU" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Article.ListPositions" class="control-label"></label>
+                <input asp-for="Article.ListPositions" class="form-control" />
+                <span asp-validation-for="Article.ListPositions" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

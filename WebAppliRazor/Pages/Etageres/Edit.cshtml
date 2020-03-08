@@ -3,6 +3,13 @@
 
 @{
     ViewData["Title"] = "Edit";
+
+    List<SelectListItem> listItems = new List<SelectListItem>();
+    foreach (var secteur in Model.SecteurList)
+    {
+        listItems.Add(new SelectListItem(secteur.Nom, secteur.Id.ToString()));
+    }
+}
 }
 
 <h1>Edit</h1>
@@ -21,7 +28,8 @@
             </div>
             <div class="form-group">
                 <label asp-for="Etagere.Secteur" class="control-label"></label>
-                <input asp-for="Etagere.Secteur" class="form-control" />
+                <br />
+                @Html.DropDownListFor(model => model.Etagere.IdSecteur, listItems)
                 <span asp-validation-for="Etagere.Secteur" class="text-danger"></span>
             </div>
             <div class="form-group">

@@ -1,0 +1,70 @@
+﻿@page
+@model WebAppliRazor.ArticleModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<a asp-page="../Index">Retour à l'accueil</a>
+
+
+<h1>Article</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Article[0].Libelle)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Article[0].Poids)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Article[0].PrixInitial)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Article[0].DateSortie)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Article[0].SKU)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Article[0].ListPositions)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Article)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Libelle)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Poids)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PrixInitial)
+            </td>
+            <th>
+                @Html.DisplayFor(modelItem => item.DateSortie)
+            </th>
+            <td>
+                @Html.DisplayFor(modelItem => item.SKU)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ListPositions)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
