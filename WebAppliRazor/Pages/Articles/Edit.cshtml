@@ -7,7 +7,19 @@
     List<SelectListItem> listItems = new List<SelectListItem>();
     foreach (var etagere in Model.EtageresList)
     {
-        listItems.Add(new SelectListItem(etagere.Id.ToString() ,etagere.Id.ToString()));
+        listItems.Add(new SelectListItem(etagere.Id.ToString(), etagere.Id.ToString()));
+    }
+
+    object validate()
+    {
+        if (Model.qte != null)
+        {
+            var qte = Convert.ToInt32(Model.qte);
+            var id = Convert.ToInt32(listItems.Where(e => e.Selected).FirstOrDefault().Value);
+
+            Model.AddPosition(qte, id);
+        }
+        return null;
     }
 }
 }
@@ -47,19 +59,52 @@
                 <span asp-validation-for="Article.SKU" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+        <form id="addPos">
+            <div class="form-group">
                 <label asp-for="Article.ListPositions" class="control-label">ID de l'étagère : </label>
                 @Html.DropDownListFor(model => model.Article.ListPositions, listItems)
                 <span asp-validation-for="Article.ListPositions" class="text-danger"></span>
 
                 <label asp-for="Article.ListPositions" class="control-label">Nombre d'articles sur l'étagère : </label>
-                <input asp-for="Article.ListPositions" class="form-control" />
-
-                <input type="submit" value="+" class="btn" />
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                
+                <input class="form-control" value="@Model.qte" id="qteIn" />
+                <input type="button" value="+" class="btn" action="@validate()" />
             </div>
         </form>
+        <div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Article.ListPositions[0].IdEtagere)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Article.ListPositions[0].Quantite)
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Article.ListPositions)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.IdEtagere)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Quantite)
+                            </td>
+                            <td>
+                                <a asp-page="./Delete" asp-route-id="@item">Delete</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 

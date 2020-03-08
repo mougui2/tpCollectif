@@ -24,6 +24,13 @@ namespace WebAppliRazor
         public Article Article { get; set; }
         public List<Etagere> EtageresList { get { return _context.Etageres.ToList(); } }
 
+        [BindProperty]
+        public string qte { get; set; }
+        public void AddPosition(int qte,int idEtagere)
+        {
+            Article.ListPositions.Add(new PositionMagasin(qte, idEtagere, Article.Id));
+        }
+
         public async Task<IActionResult> OnGetAsync(int? id)
         {
             if (id == null)
