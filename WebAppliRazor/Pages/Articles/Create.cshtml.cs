@@ -28,7 +28,7 @@ namespace WebAppliRazor
         public Article Article { get; set; }
 
         [BindProperty]
-        public List<Article> ArticlesList { get { return _context.Articles.ToList(); } }
+        public List<Etagere> EtageresList { get { return _context.Etageres.ToList(); } }
 
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.

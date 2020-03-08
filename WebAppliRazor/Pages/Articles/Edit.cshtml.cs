@@ -22,6 +22,7 @@ namespace WebAppliRazor
 
         [BindProperty]
         public Article Article { get; set; }
+        public List<Etagere> EtageresList { get { return _context.Etageres.ToList(); } }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
